@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        body{
+            margin:0;
+            font-family: Arial, sans-serif;
+            background:#f2f2f2;
+        }
+
+        /* HEADER */
+        .header{
+            background:#075e54;
+            color:white;
+            padding:15px;
+            font-size:18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .header a{
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+            background:rgba(255,255,255,0.2);
+            padding:5px 10px;
+            border-radius:5px;
+        }
+
+        /* SEARCH */
+        .search-box{
+            padding:10px;
+            background:white;
+        }
+
+        .search-box input{
+            width:100%;
+            padding:10px;
+            border-radius:20px;
+            border:1px solid #ddd;
+            outline:none;
+        }
+
+        /* CHAT LIST */
+        .chat-list{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .chat-item{
+            display:flex;
+            align-items:center;
+            padding:12px;
+            background:white;
+            border-bottom:1px solid #eee;
+            text-decoration:none;
+            color:black;
+        }
+
+        .chat-item:hover{
+            background:#f7f7f7;
+        }
+
+        .avatar{
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            margin-right:10px;
+            object-fit:cover;
+        }
+
+        .info{
+            flex:1;
+        }
+
+        .name{
+            font-weight:bold;
+            font-size:16px;
+        }
+
+        .last-msg{
+            font-size:13px;
+            color:gray;
+        }
+
+        .time{
+            font-size:11px;
+            color:gray;
+        }
+
+        /* FLOAT BUTTON (OPTIONAL FUTURE) */
+        .fab{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            background:#25d366;
+            width:55px;
+            height:55px;
+            border-radius:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:25px;
+            color:white;
+            text-decoration:none;
+        }
+    </style>
+</head>
+
+<!-- FULL PAGE WRAPPER -->
+<div class="app">
+
+    <!-- TOP BAR -->
+    <div class="header">
+        <div class="title">💬 My Chats</div>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-box">
+        <input type="text" placeholder="Search users...">
+    </div>
+
+    <!-- CHAT LIST -->
+    <div class="chat-list">
+
+        {% for u in users %}
+
+            {% if u[1] != session['user'] %}
+
+            <a href="/chat/{{ u[1] }}" class="chat-item">
+
+                <img class="avatar" src="/static/{{ u[3] }}">
+
+                <div class="chat-info">
+
+                    <div class="top-row">
+                        <div class="name">{{ u[1] }}</div>
+                        <div class="time">now</div>
+                    </div>
+
+                    <div class="last-msg">
+                        Tap to start chatting
+                    </div>
+
+                </div>
+
+            </a>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- FLOAT BUTTON -->
+<a href="#" class="fab">+</a>
+
+</body>
+</html>
